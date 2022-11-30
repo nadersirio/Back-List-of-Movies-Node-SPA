@@ -1,0 +1,22 @@
+{
+  "accounts": {
+    "c7cf7e7c-2d3c-4f85-b24b-a4fdd7720f05": {
+      "user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGVyc2lyaW9AZ21haWwuY29tIiwicGFzc3dvcmQiOiJhYWFhIiwiaWF0IjoxNjY4Mjk2ODczfQ.2uLpP_BW5jVvteG1SMivQTZA_j7DS3l1MlGoMVrnhRY"
+    },
+    "c87101f3-7de8-4d72-be87-80580639aff8": {
+      "user": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5hZGVyQGdtYWlsLmNvbSIsInBhc3N3b3JkIjoiYWFhYSIsImlhdCI6MTY2OTg0Nzg0MH0.zFkTL3IKck7_CMImrMoOTmRpu754-Zh6xsM46RDUhDw"
+    }
+  },
+  "poster": {
+    "8f1aa658-113a-4ad1-af62-1cb07325cbaa": {
+      "title": "aaa",
+      "url": "https://br.web.img2.acsta.net/medias/nmedia/18/91/54/04/20150812.jpg",
+      "release": "2001"
+    },
+    "22993cc7-c999-4199-9020-0256bc6a78b2": {
+      "title": "Shrek",
+      "url": "https://br.web.img2.acsta.net/medias/nmedia/18/91/54/04/20150812.jpg",
+      "release": "2002"
+    }
+  }
+}

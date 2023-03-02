@@ -17,7 +17,7 @@ const {
   editMovie,
 } = require("../model/movie.js");
 
-serverRouteMovie.get("/movie", (req, res) => {
+serverRouteMovie.get("/poster", (req, res) => {
   if(req?.query?.search) {
     const params = req.query.search;
     const getMovieHash = searchMovie(params);
@@ -27,9 +27,12 @@ serverRouteMovie.get("/movie", (req, res) => {
       const movie = getDatabase().poster[slug];
       return res.status(302).json({ movie, slug });
     }
-    return res.status(404).json({ error: "Movie not found." });
+    return res.status(404).json({ error: "Movie not Found." });
   }
   const listMovies = getAllMovies();
+  if(listMovies.length === 0) {
+    return res.status(404).json({ error: "Library Empty" });
+  }
   return res.json(listMovies);
 })
 
@@ -64,13 +67,14 @@ serverRouteMovie.post("/movie", (req, res) => {
   return res.status(201).setHeader('id', hashCreatedMovie).json(hashCreatedMovie);
 })
 
-serverRouteMovie.get("/movie/:slug", (req, res) => {
-  const slug = req.params.slug;
-  const movie = getDatabase().poster[slug];
+serverRouteMovie.get("/movie/:nameMovie", (req, res) => {
+  const name = req.params.nameMovie.toLowerCase();
+  const movieHash = searchMovie(name);
+  const movie = getDatabase().poster[movieHash];
   if (!movie) {
-    return res.status(404).json({ error: "Movie not Found."});
+    return res.status(404).send({ error: "Movie not Found." });
   }
-  return res.status(200).json(movie);
+  return res.status(200).json({movie, movieHash});
 });
 
 serverRouteMovie.delete("/movie/:delete", (req, res) => {

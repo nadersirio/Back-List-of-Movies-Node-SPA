@@ -76,9 +76,12 @@ serverRouteMovie.get("/movie/:nameMovie", (req, res) => {
   return res.status(200).json({movie, movieHash});
 });
 
-serverRouteMovie.delete("/movie/:delete", (req, res) => {
+serverRouteMovie.delete("/movie/:delete/:cookies", (req, res) => {
   const slug = req.params.delete;
   const database = getDatabase();
+  if(!req.params.cookies) {
+    return res.status(401).json({ error: "not autorizated" });
+  }
   delete database.poster[slug];
   saveDatabase(database);
   res.status(200).json({});

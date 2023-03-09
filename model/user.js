@@ -32,6 +32,7 @@ function checkAccountExist(userData) {
 function newAccount(userData) {
   const token = jwt.sign({ email: userData.emailUser, password: userData.passwordUser2 }, tokenPassword);
   const hash = uuidv4();
+  const email = userData.emailUser;
 
   const database = getDatabase() || {};
   const currentAccount = database.accounts[hash] || {}
@@ -41,39 +42,27 @@ function newAccount(userData) {
     user: token,
   }
   saveDatabase(database);
-  return hash;
+  return { hash, email };
 }
 
 function validAccount(loginData) {
   const database = getDatabase();
   for (let account in database.accounts) {
-    let email = false;
-    let password = false;
+    let emailUser = false;
+    let passwordUser = false;
     jwt.verify(database.accounts[account].user, tokenPassword, function(err, decoded) {
-      password = validPasswordLog(decoded.password, loginData.password);
-      email = validEmailLog(decoded.email, loginData.email);
+      emailUser = validEmailLog(decoded.email, loginData.email);
+      passwordUser = validPasswordLog(decoded.password, loginData.password);
     });
-    if (email && password === true) {
-      return account;
-    }
-  }
-}
-
-function getCookie(userCookie) {
-  const database = getDatabase();
-  for (let account in database.accounts) {
-    if(userCookie == account) {
-      let userEmailDecoded = false;
-      jwt.verify(database.accounts[account].user, tokenPassword, function(err, decoded) {
-        userEmailDecoded = decoded.email;
-      });
-      return userEmailDecoded;
+    const email = loginData.email;
+    if (emailUser && passwordUser === true) {
+      return { account, email };
     }
   }
 }
 
 function validEmailLog(email, loginData){
-  return email === loginData;
+  return email === loginData;window.location = "/";
 }
 
 function validPasswordLog(password, loginData){
@@ -86,5 +75,4 @@ module.exports = {
   checkAccountExist,
   newAccount,
   validAccount,
-  getCookie,
 }

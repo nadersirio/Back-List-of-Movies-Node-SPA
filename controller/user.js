@@ -13,7 +13,6 @@ const {
   checkAccountExist,
   newAccount,
   validAccount,
-  getCookie,
 } = require("../model/user");
 
 serverRouteUser.post("/user", (req, res) => {
@@ -31,7 +30,7 @@ serverRouteUser.post("/user", (req, res) => {
   }
   if(!accountExist && passwordCheck) {
     const createAccount = newAccount(userData);
-    return res.status(201).json(createAccount).cookie('user', createAccount);
+    return res.status(201).json(createAccount);
   }
   if(!passwordCheck) {
     return res.status(406).json({ error: "The passwords do not match."});
@@ -43,8 +42,8 @@ serverRouteUser.post("/user/:login", (req, res) => {
   const loginData = req.body.user;
   const validAccountLogin = validAccount(loginData);
   if(validAccountLogin) {
-    const hashUser = validAccountLogin;
-    return res.status(200).cookie('user', hashUser).json(hashUser);
+    const user = validAccountLogin;
+    return res.status(200).json(user);
   }
   res.status(406).json({ error: "Incorrect credentials."});
 })

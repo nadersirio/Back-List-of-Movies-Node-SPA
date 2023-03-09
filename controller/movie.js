@@ -39,8 +39,7 @@ serverRouteMovie.get("/poster", (req, res) => {
 serverRouteMovie.post("/new-movie", (req, res) => {
   const newMovie = req.body.movie;
   const hashNewMovie = req.body.slug;
-
-  if(!req.cookies.user) {
+  if(!req.body.cookies.user) {
     return res.status(401).json({ error: "not autorizated" });
   }
 
